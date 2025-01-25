@@ -1,12 +1,12 @@
 1.	--You're a Compensation analyst employed by a multinational corporation. Your Assignment is to Pinpoint Countries who give work fully remotely,
---for the title 'managers’ Paying salaries Exceeding $90,000 USD
+--for the title 'managersâ€™ Paying salaries Exceeding $90,000 USD
 
 SELECT distinct company_location 
 FROM salaries 
 where remote_ratio = 100 and job_title  like '%manager%' and (salary_in_usd > 90000)
 
 
-2.	---AS a remote work advocate Working for a progressive HR tech startup who place their freshers’ clients IN large tech firms. you're tasked WITH Identifying top 5
+2.	---AS a remote work advocate Working for a progressive HR tech startup who place their freshersâ€™ clients IN large tech firms. you're tasked WITH Identifying top 5
 --Country Having greatest count of large (company size) number of companies.
 
 select distinct experience_level  from dbo.salaries 
@@ -293,36 +293,36 @@ BEGIN TRY
     UPDATE salaries
     SET remote_ratio = 100  -- Assuming 100 indicates full remote eligibility
     WHERE 
-        company_location IN ('US', 'AU')  -- Filter for US and AU
-        AND salary_in_usd > 90000;  -- Only for employees earning above $90,000
+        company_location IN ('US', 'AU') 
+        AND salary_in_usd > 90000;  
 
     PRINT 'Remote work eligibility updated successfully.';
 END TRY
 BEGIN CATCH
     -- Error handling
     PRINT 'Error occurred while updating remote work eligibility.';
-    PRINT ERROR_MESSAGE();  -- Print the error message for debugging
+    PRINT ERROR_MESSAGE();  
 END CATCH;
 
 /*18. In year 2024, due to increase demand in data industry , there was  increase in salaries of data field employees.
                    Entry Level-35%  of the salary.
-                   Mid junior – 30% of the salary.
+                   Mid junior â€“ 30% of the salary.
                    Immediate senior level- 22% of the salary.
                    Expert level- 20% of the salary.
-                   Director – 15% of the salary.
+                   Director â€“ 15% of the salary.
 you have to update the salaries accordingly and update it back in the original database. */
 
 UPDATE camp
 SET salary_in_usd = 
     CASE 
-        WHEN experience_level = 'EN' THEN salary_in_usd * 1.35  -- Increase salary for Entry Level by 35%
-        WHEN experience_level = 'MI' THEN salary_in_usd * 1.30  -- Increase salary for Mid Junior by 30%
-        WHEN experience_level = 'SE' THEN salary_in_usd * 1.22  -- Increase salary for Immediate Senior Level by 22%
-        WHEN experience_level = 'EX' THEN salary_in_usd * 1.20  -- Increase salary for Expert Level by 20%
-        WHEN experience_level = 'DX' THEN salary_in_usd * 1.15  -- Increase salary for Director by 15%
+        WHEN experience_level = 'EN' THEN salary_in_usd * 1.35  
+        WHEN experience_level = 'MI' THEN salary_in_usd * 1.30  
+        WHEN experience_level = 'SE' THEN salary_in_usd * 1.22  
+        WHEN experience_level = 'EX' THEN salary_in_usd * 1.20  
+        WHEN experience_level = 'DX' THEN salary_in_usd * 1.15  
         ELSE salary_in_usd  -- Keep salary unchanged for other experience levels
     END
-WHERE work_year = 2024;  -- Update salaries only for the year 2024
+WHERE work_year = 2024;  
 
 
 
@@ -344,7 +344,7 @@ SELECT job_title, work_year, avg_salary FROM
 	   FROM avg_salary_per_year
     ) AS ranked_salary
 WHERE 
-    rank_by_salary = 1; -- Select the records where the rank of average salary is 1 (highest)
+    rank_by_salary = 1; 
     
     
     
@@ -355,12 +355,12 @@ Different job roles, in the format where each row will be job title, each column
 the % value*/
 SELECT 
     job_title,
-    ROUND((SUM(CASE WHEN employment_type = 'PT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PT_percentage, -- Calculate percentage of part-time employment
-    ROUND((SUM(CASE WHEN employment_type = 'FT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS FT_percentage, -- Calculate percentage of full-time employment
-    ROUND((SUM(CASE WHEN employment_type = 'CT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS CT_percentage, -- Calculate percentage of contract employment
-    ROUND((SUM(CASE WHEN employment_type = 'FL' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS FL_percentage -- Calculate percentage of freelance employment
+    ROUND((SUM(CASE WHEN employment_type = 'PT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PT_percentage, 
+    ROUND((SUM(CASE WHEN employment_type = 'FT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS FT_percentage, 
+    ROUND((SUM(CASE WHEN employment_type = 'CT' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS CT_percentage,
+    ROUND((SUM(CASE WHEN employment_type = 'FL' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS FL_percentage 
 FROM 
     salaries
 GROUP BY 
-    job_title; -- Group the result by job title
+    job_title;
    
